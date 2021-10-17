@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
+import App1 from "../Afterlogin";
+import { Switch, Route, Link } from "react-router-dom";
+
 
 export default class AddTutorial extends Component {
   constructor(props) {
@@ -11,9 +14,9 @@ export default class AddTutorial extends Component {
 
     this.state = {
       id: null,
-      title: "",
-      description: "", 
-      published: false,
+      email: "",
+      password: "", 
+      userid: "",
 
       submitted: false
     };
@@ -31,6 +34,11 @@ export default class AddTutorial extends Component {
     });
   }
 
+  redirect(){
+    
+    var where={url: "../Afterlogin"};
+    
+  }
   saveTutorial() {
     var data = {
       title: this.state.title,
@@ -40,10 +48,10 @@ export default class AddTutorial extends Component {
     TutorialDataService.create(data)
       .then(response => {
         this.setState({
-          id: response.data.id,
-          title: response.data.title,
-          description: response.data.description,
-          published: response.data.published,
+          userid: response.data.userid,
+          email: response.data.email,
+          password: response.data.password,
+          
 
           submitted: true
         });
@@ -57,9 +65,9 @@ export default class AddTutorial extends Component {
   newTutorial() {
     this.setState({
       id: null,
-      title: "",
-      description: "",
-      published: false,
+      email: "",
+      password: "",
+      userid: "",
 
       submitted: false
     });
@@ -70,56 +78,58 @@ export default class AddTutorial extends Component {
       <div className="submit-form">
         {this.state.submitted ? (
           <div>
-            <h4>You Logged in successfully!</h4>
-            <button className="btn btn-success" onClick={this.newTutorial}>
-              Login
-            </button>
+            <h4>You submitted successfully!</h4>
+            <div>
+              <h2> Services offered </h2>
+              <ol>
+                <li> USPS </li>
+                <li> Fed Ex </li>
+                <li> UPS </li>
+            </ol>
+                
+
+        <nav className="navbar navbar-expand navbar-light ">
+          
+          <div className="navbar-nav mr-auto">
+           
+            <li className="nav-item">
+              <Link to={"/after"} className="nav-link">
+                Search For A Service
+              </Link>
+            </li>
+          </div>
+        </nav>
+        </div>
           </div>
         ) : (
           <div>
-              <p>You can either use your email id or user id to login. </p>
+            
             <div className="form-group">
-              <label htmlFor="title">email id:</label>
+              <label htmlFor="description">email</label>
               <input
-                type="text"
+                type="email"
                 className="form-control"
-                id="title"
+                id="email"
                 required
                 value={this.state.title}
                 onChange={this.onChangeTitle}
-                name="title"
+                name="email"
               />
             </div>
 
             <div className="form-group">
-                <p> or</p>
-              <label htmlFor="description">user id</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
-              />
-            </div>
-
-            <div className="form-group">
-               
               <label htmlFor="description">password</label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
-                id="description"
+                id="password"
                 required
                 value={this.state.description}
                 onChange={this.onChangeDescription}
-                name="description"
+                name="password"
               />
             </div>
-
-
+            
             <button onClick={this.saveTutorial} className="btn btn-success">
               Login
             </button>
@@ -127,5 +137,9 @@ export default class AddTutorial extends Component {
         )}
       </div>
     );
+
+
   }
 }
+
+ 

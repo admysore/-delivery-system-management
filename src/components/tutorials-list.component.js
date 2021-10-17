@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 export default class TutorialsList extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchuser = this.onChangeSearchuser.bind(this);
     this.retrieveTutorials = this.retrieveTutorials.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveTutorial = this.setActiveTutorial.bind(this);
     this.removeAllTutorials = this.removeAllTutorials.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+    this.searchuser = this.searchuser.bind(this);
 
     this.state = {
       tutorials: [],
       currentTutorial: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchuser: ""
     };
   }
 
@@ -24,11 +24,11 @@ export default class TutorialsList extends Component {
     this.retrieveTutorials();
   }
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
+  onChangeSearchuser(e) {
+    const searchuser = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
+      searchuser: searchuser
     });
   }
 
@@ -71,8 +71,8 @@ export default class TutorialsList extends Component {
       });
   }
 
-  searchTitle() {
-    TutorialDataService.findByTitle(this.state.searchTitle)
+  searchuser() {
+    TutorialDataService.findByTitle(this.state.searchuser)
       .then(response => {
         this.setState({
           tutorials: response.data
@@ -83,20 +83,33 @@ export default class TutorialsList extends Component {
         console.log(e);
       });
   }
-
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { searchuser, tutorials, currentTutorial, currentIndex } = this.state;
 
     return (
       <div className="list row">
         <div className="col-md-8">
           <div className="input-group mb-3">
-            
-            
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by user"
+              value={searchuser}
+              onChange={this.onChangeSearchuser}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchuser}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
         <div className="col-md-6">
-          <h4>Users List</h4>
+          <h4>User List</h4>
 
           <ul className="list-group">
             {tutorials &&
@@ -124,20 +137,25 @@ export default class TutorialsList extends Component {
         <div className="col-md-6">
           {currentTutorial ? (
             <div>
-              <h4>Users</h4>
+              <h4>User Details</h4>
               <div>
                 <label>
-                  <strong>Name:</strong>
+                  <strong>Title:</strong>
                 </label>{" "}
                 {currentTutorial.title}
               </div>
               <div>
                 <label>
-                  <strong>Email ID:</strong>
+                  <strong>Description:</strong>
                 </label>{" "}
                 {currentTutorial.description}
               </div>
-              
+              <div>
+                <label>
+                  <strong>Status:</strong>
+                </label>{" "}
+                {currentTutorial.published ? "Published" : "Pending"}
+              </div>
 
               <Link
                 to={"/tutorials/" + currentTutorial.id}
@@ -149,7 +167,6 @@ export default class TutorialsList extends Component {
           ) : (
             <div>
               <br />
-              
             </div>
           )}
         </div>

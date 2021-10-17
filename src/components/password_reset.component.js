@@ -95,11 +95,11 @@ export default class PasswordReset extends Component {
               <input
                 type="text"
                 className="form-control"
-                id="description"
+                id="password"
                 required
                 value={this.state.description}
                 onChange={this.onChangeDescription}
-                name="description"
+                name="password"
               />
             </div>
             <div className="form-group">
@@ -107,11 +107,11 @@ export default class PasswordReset extends Component {
               <input
                 type="text"
                 className="form-control"
-                id="description"
+                id="password"
                 required
                 value={this.state.description}
                 onChange={this.onChangeDescription}
-                name="description"
+                name="password"
               />
             </div>
 

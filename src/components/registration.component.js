@@ -78,28 +78,30 @@ export default class Registration extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="title">Name</label>
+              <label htmlFor="title">Email</label>
               <input
                 type="text"
                 className="form-control"
-                id="title"
+                email="email"
                 required
                 value={this.state.title}
                 onChange={this.onChangeTitle}
-                name="title"
+                name="email"
               />
             </div>
 
+            
+          
             <div className="form-group">
-              <label htmlFor="description">Email id</label>
+              <label htmlFor="description">Password</label>
               <input
                 type="text"
                 className="form-control "
-                id="description"
+                id="password"
                 required
                 value={this.state.description}
                 onChange={this.onChangeDescription}
-                name="description"
+                name="password"
               />
             </div>
 

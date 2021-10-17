@@ -5,28 +5,28 @@ class TutorialDataService {
     return http.get("/tutorials");
   }
 
-  get(id) {
-    return http.get(`/tutorials/${id}`);
+  get(userid) {
+    return http.get(`/tutorials/${userid}`);
   }
 
   create(data) {
     return http.post("/tutorials", data);
   }
 
-  update(id, data) {
-    return http.put(`/tutorials/${id}`, data);
+  update(userid, data) {
+    return http.put(`/tutorials/${userid}`, data);
   }
 
-  delete(id) {
-    return http.delete(`/tutorials/${id}`);
+  delete(userid) {
+    return http.delete(`/tutorials/${userid}`);
   }
 
   deleteAll() {
     return http.delete(`/tutorials`);
   }
 
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
+  findByTitle(email) {
+    return http.get(`/tutorials?title=${email}`);
   }
 }
 
